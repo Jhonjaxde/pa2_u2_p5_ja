@@ -2,6 +2,8 @@ package com.uce.edu;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,37 +14,47 @@ import com.uce.edu.repository.modelo.Alumno;
 import com.uce.edu.repository.modelo.Ciudadano;
 import com.uce.edu.repository.modelo.Empleado;
 import com.uce.edu.repository.modelo.Estudiante;
+import com.uce.edu.repository.modelo.Habitacion;
+import com.uce.edu.repository.modelo.Hotel;
 import com.uce.edu.service.IAlumnoService;
 import com.uce.edu.service.ICiudadanoService;
 import com.uce.edu.service.IEmpleadoService;
 import com.uce.edu.service.IEstudianteService;
+import com.uce.edu.service.IHabitacionService;
+import com.uce.edu.service.IHotelService;
 
 @SpringBootApplication
 public class Pa2U2P5JaApplication implements CommandLineRunner {
+	
 	@Autowired
-	private ICiudadanoService ciudadanoService;
-	@Autowired
-	private IEmpleadoService empleadoService;
+	private IHotelService hotelService;
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P5JaApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		Ciudadano ciu = new Ciudadano();
-		ciu.setApellido("ARTEAGA");
-		ciu.setNombre("JHON");
+		// instancias
+		Hotel hot = new Hotel();
+		hot.setDireccion("AV.Carapungo");
+		hot.setNombre("HOSTAL TREE");
 		
-		Empleado em = new Empleado();
-		em.setFechaIngreso(LocalDateTime.now());
-		em.setSalario(new BigDecimal(893289239));
+		Habitacion hab1 = new Habitacion();
+		hab1.setClase("humilde");
+		hab1.setNumero("05");
+		Habitacion hab2 = new Habitacion();
+		hab2.setClase("premium");
+		hab2.setNumero("69");
+		List<Habitacion> lista = new ArrayList<>();
+		lista.add(hab1);
+		lista.add(hab2);
+		// relaciones 
+		hot.setHabitaciones(lista);
+		hab1.setHotel(hot);
+		hab2.setHotel(hot);
 		
-		em.setCiudadano(this.ciudadanoService.buscar(2));
-		ciu.setEmpleado(em);
-		
-		this.empleadoService.guardar(em);
-		this.ciudadanoService.guardar(ciu);
-		//System.out.println(this.ciudadanoService.buscar(2));
+		this.hotelService.guardar(hot);
+		//System.out.println(this.hotelService.buscar(1));
 		
 	}
 

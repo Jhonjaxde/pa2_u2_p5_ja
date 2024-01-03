@@ -3,6 +3,7 @@ package com.uce.edu.repository.modelo;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,11 +25,11 @@ public class Empleado {
 	private BigDecimal salario;
 	@Column(name = "empl_fechaIngreso")
 	private LocalDateTime fechaIngreso;
-	//SET Y GET
-	@OneToOne
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "empl_id_ciudadano")
 	private Ciudadano ciudadano;
-	
+	//SET Y GET
 	public Integer getId() {
 		return id;
 	}
