@@ -12,37 +12,39 @@ import com.uce.edu.repository.modelo.Alumno;
 import com.uce.edu.repository.modelo.Ciudadano;
 import com.uce.edu.repository.modelo.Empleado;
 import com.uce.edu.repository.modelo.Estudiante;
+import com.uce.edu.repository.modelo.Identificacion;
+import com.uce.edu.repository.modelo.Persona;
 import com.uce.edu.service.IAlumnoService;
-import com.uce.edu.service.ICiudadanoService;
-import com.uce.edu.service.IEmpleadoService;
+import com.uce.edu.service.IIdentificaionService;
+import com.uce.edu.service.IPersonaService;
 import com.uce.edu.service.IEstudianteService;
 
 @SpringBootApplication
 public class Pa2U2P5JaApplication implements CommandLineRunner {
 	@Autowired
-	private ICiudadanoService ciudadanoService;
+	private IPersonaService personaService;
 	@Autowired
-	private IEmpleadoService empleadoService;
+	private IIdentificaionService identificaionService;
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P5JaApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		Ciudadano ciu = new Ciudadano();
-		ciu.setApellido("ARTEAGA");
-		ciu.setNombre("JHON");
+		Persona pe = new Persona();
+		pe.setNombre("Jairo");
+		pe.setApellido("Arteaga");
 		
-		Empleado em = new Empleado();
-		em.setFechaIngreso(LocalDateTime.now());
-		em.setSalario(new BigDecimal(893289239));
+		Identificacion id = new Identificacion();
+		id.setNumeroId("1720786327");
+		id.setFechaCreacion(LocalDateTime.now());
 		
-		em.setCiudadano(this.ciudadanoService.buscar(2));
-		ciu.setEmpleado(em);
+		//relacioness
+		pe.setIdentificacion(id);
+		id.setPersona(pe);
 		
-		this.empleadoService.guardar(em);
-		this.ciudadanoService.guardar(ciu);
-		//System.out.println(this.ciudadanoService.buscar(2));
+		this.personaService.guardar(pe);
+		System.out.println(this.personaService.buscar(1));
 		
 	}
 
