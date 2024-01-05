@@ -28,6 +28,8 @@ public class Pa2U2P5JaApplication implements CommandLineRunner {
 	
 	@Autowired
 	private IHotelService hotelService;
+	@Autowired
+	private IHabitacionService habitacionService;
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P5JaApplication.class, args);
 	}
@@ -36,25 +38,37 @@ public class Pa2U2P5JaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// instancias
 		Hotel hot = new Hotel();
-		hot.setDireccion("AV.Carapungo");
-		hot.setNombre("HOSTAL TREE");
+		hot.setDireccion("Av. quitus");
+		hot.setNombre("HOTEL LUNA");
 		
 		Habitacion hab1 = new Habitacion();
-		hab1.setClase("humilde");
-		hab1.setNumero("05");
+		hab1.setClase("barato");
+		hab1.setNumero("1");
 		Habitacion hab2 = new Habitacion();
-		hab2.setClase("premium");
-		hab2.setNumero("69");
+		hab2.setClase("caro");
+		hab2.setNumero("34");
+		
+		Habitacion hab3 = new Habitacion();
+		hab3.setClase("caro");
+		hab3.setNumero("41");
+		
+		Habitacion hab4 = new Habitacion();
+		hab4.setClase("barato");
+		hab4.setNumero("11");
 		List<Habitacion> lista = new ArrayList<>();
 		lista.add(hab1);
 		lista.add(hab2);
+		lista.add(hab3);
+		lista.add(hab4);
 		// relaciones 
 		hot.setHabitaciones(lista);
 		hab1.setHotel(hot);
 		hab2.setHotel(hot);
+		hab3.setHotel(hot);
+		hab4.setHotel(hot);
+		//this.hotelService.guardar(hot);
+		System.out.println(this.habitacionService.buscar(1));
 		
-		this.hotelService.guardar(hot);
-		//System.out.println(this.hotelService.buscar(1));
 		
 	}
 
