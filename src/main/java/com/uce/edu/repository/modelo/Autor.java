@@ -6,6 +6,7 @@ import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +26,7 @@ public class Autor {
 	private String nombre;
 	@Column(name = "auto_nacional")
 	private String nacional;
-	@ManyToMany(mappedBy = "autores",cascade =  CascadeType.ALL)
+	@ManyToMany(mappedBy = "autores",cascade =  CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<Libro> libros;
 	
 	//SET Y GET
@@ -53,6 +54,10 @@ public class Autor {
 	}
 	public void setLibros(Set<Libro> libros) {
 		this.libros = libros;
+	}
+	@Override
+	public String toString() {
+		return "Autor [id=" + id + ", nombre=" + nombre + ", nacional=" + nacional + ", libros=" + libros + "]";
 	}
 	
 	

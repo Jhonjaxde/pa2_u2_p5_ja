@@ -21,6 +21,7 @@ import com.uce.edu.repository.modelo.Habitacion;
 import com.uce.edu.repository.modelo.Hotel;
 import com.uce.edu.repository.modelo.Libro;
 import com.uce.edu.service.IAlumnoService;
+import com.uce.edu.service.IAutorService;
 import com.uce.edu.service.ICiudadanoService;
 import com.uce.edu.service.IEmpleadoService;
 import com.uce.edu.service.IEstudianteService;
@@ -32,6 +33,8 @@ import com.uce.edu.service.ILibroService;
 public class Pa2U2P5JaApplication implements CommandLineRunner {
 	@Autowired
 	private ILibroService libroService;
+	@Autowired
+	private IAutorService autorService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P5JaApplication.class, args);
@@ -39,32 +42,38 @@ public class Pa2U2P5JaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//un libro que tiene dos autores
+		//dos libros que tiene un autor
 		//instancias
 		Libro lib = new Libro();
-		lib.setTitulo("caperucita roja");
-		lib.setFechaPublicacion(LocalDateTime.now());
+		lib.setTitulo("La Divina Comedia");
+		lib.setFechaPublicacion(LocalDateTime.of(1472, 12, 12, 12, 02));
 		
-		Autor au1 = new Autor();
-		au1.setNacional("ruso");
-		au1.setNombre("santa claus");
+		Libro lib1 = new Libro();
+		lib1.setTitulo("Infierno ");
+		lib1.setFechaPublicacion(LocalDateTime.now());
 		
-		Autor au2 = new Autor();
-		au2.setNacional("ingles");
-		au2.setNombre("Albert wesker");
+		Autor au = new Autor();
+		au.setNacional("italiano");
+		au.setNombre("Dante Alighieri");
+		
 		// relaciones
 		Set<Libro> listaLibro = new HashSet<Libro>();
 		listaLibro.add(lib);
-		au1.setLibros(listaLibro);
-		au2.setLibros(listaLibro);
+		listaLibro.add(lib1);
+		au.setLibros(listaLibro);
 		
 		Set<Autor> listaAutor = new HashSet<Autor>();
-		listaAutor.add(au1);
-		listaAutor.add(au2);
+		listaAutor.add(au);
+		
 		lib.setAutores(listaAutor);
 		//insercion 
-		this.libroService.guardar(lib);
+		//this.libroService.guardar(lib);
+		//Libro li = this.libroService.buscar(2);
+		//li.setTitulo("Infierno de Dante");
 		
+		//this.libroService.actualizar(li);
+		
+		this.autorService.borrar(3);
 		
 		
 	}
