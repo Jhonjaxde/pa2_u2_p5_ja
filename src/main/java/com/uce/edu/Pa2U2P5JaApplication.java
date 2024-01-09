@@ -14,12 +14,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.uce.edu.repository.modelo.Alumno;
 import com.uce.edu.repository.modelo.Autor;
+import com.uce.edu.repository.modelo.Autor2;
+import com.uce.edu.repository.modelo.AutorLibro;
 import com.uce.edu.repository.modelo.Ciudadano;
 import com.uce.edu.repository.modelo.Empleado;
 import com.uce.edu.repository.modelo.Estudiante;
 import com.uce.edu.repository.modelo.Habitacion;
 import com.uce.edu.repository.modelo.Hotel;
 import com.uce.edu.repository.modelo.Libro;
+import com.uce.edu.repository.modelo.Libro2;
 import com.uce.edu.service.IAlumnoService;
 import com.uce.edu.service.ICiudadanoService;
 import com.uce.edu.service.IEmpleadoService;
@@ -41,30 +44,50 @@ public class Pa2U2P5JaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		//un libro que tiene dos autores
 		//instancias
-		Libro lib = new Libro();
+		Libro2 lib = new Libro2();
 		lib.setTitulo("caperucita roja");
 		lib.setFechaPublicacion(LocalDateTime.now());
 		
-		Autor au1 = new Autor();
+		Autor2 au1 = new Autor2();
 		au1.setNacional("ruso");
 		au1.setNombre("santa claus");
 		
-		Autor au2 = new Autor();
+		Autor2 au2 = new Autor2();
 		au2.setNacional("ingles");
 		au2.setNombre("Albert wesker");
 		// relaciones
-		Set<Libro> listaLibro = new HashSet<Libro>();
-		listaLibro.add(lib);
-		au1.setLibros(listaLibro);
-		au2.setLibros(listaLibro);
+		//List<Libro2> listaLibro = new ArrayList<Libro2>();
+		//listaLibro.add(lib);
+		//au1.setLibros(listaLibro);
+		//au2.setLibros(listaLibro);
 		
-		Set<Autor> listaAutor = new HashSet<Autor>();
+		List<Autor2> listaAutor = new ArrayList<Autor2>();
 		listaAutor.add(au1);
 		listaAutor.add(au2);
-		lib.setAutores(listaAutor);
-		//insercion 
-		this.libroService.guardar(lib);
 		
+		
+		AutorLibro autorLibro1 = new AutorLibro();
+		autorLibro1.setLibro2(lib);
+		autorLibro1.setAutor2(au1);
+		autorLibro1.setFecha(LocalDateTime.now());
+		
+		
+		AutorLibro autorLibro2 = new AutorLibro();
+		autorLibro2.setLibro2(lib);
+		autorLibro2.setAutor2(au2);
+		autorLibro2.setFecha(LocalDateTime.now());
+		
+		List<AutorLibro> lista= new ArrayList<>();
+		lista.add(autorLibro1);
+		lista.add(autorLibro2);
+		
+		lib.setAutoresLibros(lista);
+		
+		//lib.setAutoresLibros(listaAutor);
+		//insercion 
+		//this.libroService.guardar(lib);
+		Libro libro= this.libroService.buscarPorTitulo("caperucita roja");
+		System.out.println(libro);
 		
 		
 	}
