@@ -44,52 +44,66 @@ public class Pa2U2P5JaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		//un libro que tiene dos autores
 		//instancias
-		Libro2 lib = new Libro2();
-		lib.setTitulo("caperucita roja");
-		lib.setFechaPublicacion(LocalDateTime.now());
+		Libro lib = new Libro();
+		lib.setTitulo("Programacion avanzada");
+		lib.setFechaPublicacion(LocalDateTime.of(2024, 01, 10, 18, 0));
 		
-		Autor2 au1 = new Autor2();
+		Autor au1 = new Autor();
 		au1.setNacional("ruso");
 		au1.setNombre("santa claus");
 		
-		Autor2 au2 = new Autor2();
+		Autor au2 = new Autor();
 		au2.setNacional("ingles");
 		au2.setNombre("Albert wesker");
-		// relaciones
-		//List<Libro2> listaLibro = new ArrayList<Libro2>();
-		//listaLibro.add(lib);
-		//au1.setLibros(listaLibro);
+		//relaciones
+		Set<Libro> listaLibro = new HashSet<>();
+		listaLibro.add(lib);
+		au1.setLibros(listaLibro);
 		//au2.setLibros(listaLibro);
 		
-		List<Autor2> listaAutor = new ArrayList<Autor2>();
+		Set<Autor> listaAutor = new HashSet<>();
 		listaAutor.add(au1);
-		listaAutor.add(au2);
+		//listaAutor.add(au2);
+		lib.setAutores(listaAutor);
+		
+		/*
+		 * AutorLibro autorLibro1 = new AutorLibro(); autorLibro1.setLibro2(lib);
+		 * autorLibro1.setAutor2(au1); autorLibro1.setFecha(LocalDateTime.now());
+		 * 
+		 * 
+		 * AutorLibro autorLibro2 = new AutorLibro(); autorLibro2.setLibro2(lib);
+		 * autorLibro2.setAutor2(au2); autorLibro2.setFecha(LocalDateTime.now());
+		 * 
+		 * List<AutorLibro> lista= new ArrayList<>(); lista.add(autorLibro1);
+		 * lista.add(autorLibro2); lib.setAutoresLibros(lista);
+		 */
 		
 		
-		AutorLibro autorLibro1 = new AutorLibro();
-		autorLibro1.setLibro2(lib);
-		autorLibro1.setAutor2(au1);
-		autorLibro1.setFecha(LocalDateTime.now());
-		
-		
-		AutorLibro autorLibro2 = new AutorLibro();
-		autorLibro2.setLibro2(lib);
-		autorLibro2.setAutor2(au2);
-		autorLibro2.setFecha(LocalDateTime.now());
-		
-		List<AutorLibro> lista= new ArrayList<>();
-		lista.add(autorLibro1);
-		lista.add(autorLibro2);
-		
-		lib.setAutoresLibros(lista);
-		
-		//lib.setAutoresLibros(listaAutor);
 		//insercion 
 		//this.libroService.guardar(lib);
-		Libro libro= this.libroService.buscarPorTitulo("caperucita roja");
+		System.out.println("Query");
+		Libro libr= this.libroService.buscarPorTitulo("Programacion avanzada");
+		System.out.println(libr);
+		
+		List<Libro> listalibro =  this.libroService.buscarPorFechaPublicacion(LocalDateTime.of(2024, 01, 10, 18, 0));
+		for (Libro libro : listalibro) {
+			System.out.println(libro);
+		}
+		System.out.println("TypedQuery");
+		Libro libro= this.libroService.buscarPorTituloT("JAVA2");
 		System.out.println(libro);
 		
+		List<Libro> lista =  this.libroService.buscarPorFecha(LocalDateTime.of(2024, 01, 10, 18, 0));
+		for (Libro libro1 : lista) {
+			System.out.println(libro1);
+		}
+		System.out.println("NamedQuery");
+		Libro libro1= this.libroService.buscarPorTituloNamed("JAVA");
+		System.out.println(libro1);
 		
+		List<Libro> lista1 =  this.libroService.buscarPorFechaNamed(LocalDateTime.of(2024, 01, 10, 18, 0));
+		for (Libro libro2 : lista1) {
+			System.out.println(libro2);}
 	}
 
 }
