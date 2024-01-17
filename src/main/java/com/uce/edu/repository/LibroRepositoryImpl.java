@@ -21,13 +21,15 @@ public class LibroRepositoryImpl implements ILibroRepository {
 	// 1.- Query(JPQL)
 	//  1.1 TypedQuery
 	//  1.2 NamedQuery
-	// 2.- NativeQuery
+	// 2.- NativeQuery.- se usa el SQL puro y ya no utiliza el JPQL
+	//		Esto se utiliza cuando se estima mas el rendimiento que la orientacion a objetos
+	//		
 	// 3.- Criteria API Query
 	// cuando un query es importante utilizar en momentos especificos
 	//los namedquery solucionan de una manera centralizada(JPQL)le da un nombre al SQL
 	//  y cuando se necesite usar se lo llama por el alias en la clase que se lo necesita(entidad)
 	//
-
+	// hay que tener en cuenta que queries se debe usar por temas de rendimiento
 	@PersistenceContext
 	private EntityManager entityManager;
 
