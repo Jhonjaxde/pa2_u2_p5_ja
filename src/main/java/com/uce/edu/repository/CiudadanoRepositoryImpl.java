@@ -1,5 +1,6 @@
 package com.uce.edu.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.hibernate.query.NativeQuery;
@@ -42,6 +43,27 @@ public class CiudadanoRepositoryImpl implements ICiudadanoRepository {
 				this.entityManager.createNativeQuery("SELECT * FROM ciudadano c WHERE c.ciud_cedula=:cedula",Ciudadano.class);
 		consulta.setParameter("cedula", cedula);
 		return (List<Ciudadano>) consulta.getResultList();
+	}
+	@Override
+	public List<Ciudadano> seleccionarPorNombre(String nombre) {
+		Query consulta =
+				this.entityManager.createNativeQuery("SELECT * FROM ciudadano c WHERE c.ciud_nombre=:nombre",Ciudadano.class);
+		consulta.setParameter("nombre", nombre);
+		return (List<Ciudadano>) consulta.getResultList();
+	}
+	@Override
+	public Empleado seleccionarPorApellido(String apellido) {
+		TypedQuery<Empleado> consulta = 
+				this.entityManager.createQuery("SELECT e FROM Empleado e WHERE e.ciudadano.apellido=:apellido", Empleado.class);
+				consulta.setParameter("apellido", apellido);
+				return consulta.getSingleResult();
+	}
+	@Override
+	public Empleado seleccionarPorNombreT(String nombre) {
+		TypedQuery<Empleado> consulta = 
+				this.entityManager.createQuery("SELECT e FROM Empleado e WHERE e.ciudadano.nombre=:nombre", Empleado.class);
+				consulta.setParameter("nombre", nombre);
+				return consulta.getSingleResult();
 	}
 	
 	

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.uce.edu.repository.IHabitacionRepository;
 import com.uce.edu.repository.modelo.Habitacion;
+import com.uce.edu.repository.modelo.Hotel;
 @Service
 public class HabitacionServiceImpl implements IHabitacionService {
 	@Autowired
@@ -31,6 +32,18 @@ public class HabitacionServiceImpl implements IHabitacionService {
 	public void borrar(Integer id) {
 		this.habitacionRepository.eliminar(id);
 
+	}
+
+	@Override
+	public Hotel buscarDireccion(String direccion) {
+		// TODO Auto-generated method stub
+		return this.habitacionRepository.seleccionarDireccion(direccion);
+	}
+
+	@Override
+	public Habitacion buscarPorClase(String clase) {
+		// TODO Auto-generated method stub
+		return this.habitacionRepository.seleccionarPorClase(clase);
 	}
 
 }

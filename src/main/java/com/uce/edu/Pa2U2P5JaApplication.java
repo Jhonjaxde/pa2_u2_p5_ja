@@ -37,6 +37,10 @@ public class Pa2U2P5JaApplication implements CommandLineRunner {
 	private IEmpleadoService empleadoService;
 	@Autowired
 	private ICiudadanoService ciudadanoService;
+	@Autowired
+	private IHabitacionService habitacionService;
+	@Autowired
+	private IHotelService hotelService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P5JaApplication.class, args);
@@ -44,6 +48,31 @@ public class Pa2U2P5JaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		//1.-
+		Hotel ho = new Hotel();
+		ho.setDireccion("carapungo");
+		ho.setNombre("hostila");
+		
+		
+		Habitacion hab= new Habitacion();
+		hab.setNumero("2");
+		hab.setClase("premium");
+		List<Habitacion> lista = new ArrayList<>();
+		lista.add(hab);
+		
+		
+		ho.setHabitaciones(lista);
+		hab.setHotel(ho);
+		
+		//this.habitacionService.guardar(hab);
+		//System.out.println(this.habitacionService.buscarDireccion("carapungo"));
+		//System.out.println(this.hotelService.buscarPorClase("premium"));
+		//System.out.println(this.hotelService.buscarPorNombre("hostila"));
+		//System.out.println(this.habitacionService.buscarPorClase("premium"));
+		
+		
+		//1
+		
 		Ciudadano ciu = new Ciudadano();
 		ciu.setApellido("holay");
 		ciu.setCedula("122");
@@ -58,8 +87,10 @@ public class Pa2U2P5JaApplication implements CommandLineRunner {
 		//this.empleadoService.guardar(emp);
 		
 		//this.ciudadanoService.guardar(ciu);
-		System.out.println(this.ciudadanoService.buscarPorCedulaCiu("122"));
-		
+		//System.out.println(this.ciudadanoService.buscarPorNombreT("aldon"));
+		//System.out.println(this.ciudadanoService.buscarPorApellido("holay"));
+		//System.out.println(this.ciudadanoService.buscarPorApellido("holay"));
+		System.out.println(this.empleadoService.buscarPorFecha(LocalDateTime.of(2024, 2, 1, 20, 05)));
 	}
 
 }

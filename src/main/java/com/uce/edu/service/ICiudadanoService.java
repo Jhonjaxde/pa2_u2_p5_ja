@@ -1,5 +1,6 @@
 package com.uce.edu.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.uce.edu.repository.modelo.Ciudadano;
@@ -13,4 +14,10 @@ public interface ICiudadanoService {
 	public Empleado buscarPorCedula(String cedula);
 	
 	public List<Ciudadano> buscarPorCedulaCiu(String cedula);
+	
+	public List<Ciudadano> buscarPorNombre(String nombre); 
+	
+	public Empleado buscarPorApellido(String apellido);
+	public Empleado buscarPorNombreT(String nombre);
+	
 }

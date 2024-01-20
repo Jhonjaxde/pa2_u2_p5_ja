@@ -1,5 +1,6 @@
 package com.uce.edu.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,21 @@ public class CiudadanoServiceImpl implements ICiudadanoService{
 	public List<Ciudadano> buscarPorCedulaCiu(String cedula) {
 		// TODO Auto-generated method stub
 		return this.ciudadanoRepository.seleccionarPorCedulaCiu(cedula);
+	}
+	@Override
+	public List<Ciudadano> buscarPorNombre(String nombre) {
+		// TODO Auto-generated method stub
+		return this.ciudadanoRepository.seleccionarPorNombre(nombre);
+	}
+	@Override
+	public Empleado buscarPorApellido(String apellido) {
+		// TODO Auto-generated method stub
+		return this.ciudadanoRepository.seleccionarPorApellido(apellido);
+	}
+	@Override
+	public Empleado buscarPorNombreT(String nombre) {
+		// TODO Auto-generated method stub
+		return this.ciudadanoRepository.seleccionarPorNombreT(nombre);
 	}
 	
 }
