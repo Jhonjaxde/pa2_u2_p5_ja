@@ -1,5 +1,7 @@
 package com.uce.edu.service;
 
+import java.util.List;
+
 import com.uce.edu.repository.modelo.Habitacion;
 import com.uce.edu.repository.modelo.Hotel;
 
@@ -10,4 +12,7 @@ public interface IHabitacionService {
 	public void borrar(Integer id);
 	public Hotel buscarDireccion(String direccion);
 	public Habitacion buscarPorClase(String clase);
+	public List<Habitacion> buscarPorNumero(String numero);
+	public List<Habitacion> buscarPorClaseC(String clase,String numero);
+	
 }

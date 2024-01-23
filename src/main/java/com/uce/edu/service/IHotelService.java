@@ -12,4 +12,5 @@ public interface IHotelService {
 	public void borrar(Integer id);
 	public List<Habitacion> buscarPorClase(String clase);
 	public Hotel buscarPorNombre(String nombre);
+	public Hotel buscarPorDireccion(String direccion);
 }

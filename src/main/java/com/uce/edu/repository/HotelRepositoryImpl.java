@@ -12,6 +12,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -46,18 +50,29 @@ public class HotelRepositoryImpl implements IHotelRepository {
 
 	@Override
 	public List<Habitacion> seleccionarPorClase(String clase) {
-		TypedQuery<Habitacion> consulta= 
-				this.entityManager.createQuery("SELECT ho FROM Hotel ho WHERE ho.habitaciones.clase=:clase ", Habitacion.class);
+		TypedQuery<Habitacion> consulta = this.entityManager
+				.createQuery("SELECT ho FROM Hotel ho WHERE ho.habitaciones.clase=:clase ", Habitacion.class);
 		consulta.setParameter("clase", clase);
 		return consulta.getResultList();
 	}
 
 	@Override
 	public Hotel seleccionarPorNombre(String nombre) {
-		Query consulta =
-				this.entityManager.createNativeQuery("SELECT * FROM hotel ho WHERE ho.hot_nombre=:nombre",Hotel.class);
+		Query consulta = this.entityManager.createNativeQuery("SELECT * FROM hotel ho WHERE ho.hot_nombre=:nombre",
+				Hotel.class);
 		consulta.setParameter("nombre", nombre);
 		return (Hotel) consulta.getSingleResult();
+	}
+
+	@Override
+	public Hotel seleccionarPorDireccion(String direccion) {
+		CriteriaBuilder myCriteria = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Hotel> myCriteriaQuery = myCriteria.createQuery(Hotel.class);
+		Root<Hotel> myFrom = myCriteriaQuery.from(Hotel.class);
+		Predicate condicionDireccion = myCriteria.equal(myFrom.get("direccion"), direccion);
+		myCriteriaQuery.select(myFrom).where(condicionDireccion);
+		TypedQuery<Hotel> myTypedQuery = this.entityManager.createQuery(myCriteriaQuery);
+		return myTypedQuery.getSingleResult();
 	}
 
 }
