@@ -41,56 +41,34 @@ public class Pa2U2P5JaApplication implements CommandLineRunner {
 	private IHabitacionService habitacionService;
 	@Autowired
 	private IHotelService hotelService;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U2P5JaApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		//1.-
-		Hotel ho = new Hotel();
-		ho.setDireccion("carapungo");
-		ho.setNombre("hostila");
+		//Criteria API Query 
 		
-		
-		Habitacion hab= new Habitacion();
-		hab.setNumero("2");
-		hab.setClase("premium");
-		List<Habitacion> lista = new ArrayList<>();
-		lista.add(hab);
-		
-		
-		ho.setHabitaciones(lista);
-		hab.setHotel(ho);
-		
-		//this.habitacionService.guardar(hab);
-		//System.out.println(this.habitacionService.buscarDireccion("carapungo"));
-		//System.out.println(this.hotelService.buscarPorClase("premium"));
-		//System.out.println(this.hotelService.buscarPorNombre("hostila"));
-		//System.out.println(this.habitacionService.buscarPorClase("premium"));
-		
-		
-		//1
-		
-		Ciudadano ciu = new Ciudadano();
-		ciu.setApellido("holay");
-		ciu.setCedula("122");
-		ciu.setNombre("aldon");
-		Empleado emp = new Empleado();
-		emp.setFechaIngreso(LocalDateTime.now());
-		emp.setSalario(new BigDecimal(2000));
-		
-		ciu.setEmpleado(emp);
-		emp.setCiudadano(ciu);
-		
-		//this.empleadoService.guardar(emp);
-		
-		//this.ciudadanoService.guardar(ciu);
-		//System.out.println(this.ciudadanoService.buscarPorNombreT("aldon"));
-		//System.out.println(this.ciudadanoService.buscarPorApellido("holay"));
-		//System.out.println(this.ciudadanoService.buscarPorApellido("holay"));
-		System.out.println(this.empleadoService.buscarPorFecha(LocalDateTime.of(2024, 2, 1, 20, 05)));
+			Ciudadano ciu=this.ciudadanoService.buscarPorApellidoC("Arteaga");
+			System.out.println(ciu);
+
+			Ciudadano ciu1=this.ciudadanoService.buscarPorCriteria("Jhon", "Arteaga", "1720368248");
+					System.out.println(ciu1);
+					
+			Ciudadano ciu2=this.ciudadanoService.buscarPorCriteria("Jhon", "Arteaga", "0520368248");
+			System.out.println(ciu2);	
+			
+			//Ciudadano ciu3=this.ciudadanoService.buscarPorCriteria("augusto", "salazar", "0652083905");
+			//System.out.println(ciu3);
+			
+			System.out.println("Criteria API Query AND OR ");
+			Ciudadano ciu4=this.ciudadanoService.buscarPorCriteriaAndOr("Jhon", "Arteaga", "1720368248");
+			System.out.println(ciu4);
+			
+			Ciudadano ciu5=this.ciudadanoService.buscarPorCriteriaAndOr("Jhon", "Arteaga", "0520368248");
+			System.out.println(ciu5);
+
 	}
 
 }
